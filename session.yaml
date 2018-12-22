@@ -1,0 +1,10 @@
+#jumper
+jumper: &jumper "ssh tom@10.0.0.1"
+
+#host list
+myserver:
+  sshlogin: *jumper 
+  automate:
+    - {expect: password, send: mypassword}
+    - {expect: prompt, send: ssh tom@10.0.0.2}
+    - {expect: password2, send: mypassword2}
