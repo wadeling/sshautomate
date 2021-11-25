@@ -45,6 +45,11 @@ do
 	expect=`cat $config_yaml | shyaml get-value $host.automate.$i.expect`
 	send=`cat $config_yaml| shyaml get-value $host.automate.$i.send`
 
+	#support google MFA
+    if [ "$expect" == "OTP" ];then
+        send=`python3 ~/go/src/github.com/grahammitchell/google-authenticator/google-authenticator.py|awk '{print $2}'`
+    fi
+
 	#append to expfile
 	if [ $i -eq $last_index ];then
 		append_expfile "expect \"$expect\" {send \"$send\\n\";interact}" 
